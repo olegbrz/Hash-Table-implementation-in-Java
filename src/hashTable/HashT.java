@@ -13,7 +13,7 @@ public class HashT<K, V> implements HashTable<K, V> {
 	
 	private int getHash(K key) {
 		int hash = key.hashCode();
-		return hash % table.length;
+		return (hash & 0x7fffffff) % table.length;
 	}
 	
 	public int getIndex(K key) {
