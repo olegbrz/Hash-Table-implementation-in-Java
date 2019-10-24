@@ -1,19 +1,24 @@
 package hashTable;
 
-import java.util.ArrayList;
-
 public class HashT<K, V> implements HashTable<K, V> {
 	
-	ArrayList<HashNode<K, V>> list = new ArrayList<>();
-	int size;
+	private HashNode<K, V>[] table;
+	private int size;
 	
 	
-	public HashT() {
+	public HashT(int num) {
+		table = (HashNode<K, V>[]) new HashNode[num];
+		size = 0;
 	}
 	
-	public 	int getHash(K key) {
+	private int getHash(K key) {
 		int hash = key.hashCode();
-		return hash;
+		return hash % table.length;
+	}
+	
+	public int getIndex(K key) {
+		int hash = key.hashCode();
+		return hash % size;
 	}
 	
 	@Override
@@ -27,9 +32,23 @@ public class HashT<K, V> implements HashTable<K, V> {
 	}
 
 	@Override
-	public void insert(K k, V v) {
-		// TODO Auto-generated method stub
+	public void insert(K key, V value) {
+		int index = getHash(key);
+		HashNode<K, V> node = searchNode(key, index);
 		
+		if (node == null) {
+			table[index] = new HashNode<K, V>(key, value, table[index]);
+			size ++;
+			}
+		else
+			node.value = value;
+
+		
+	}
+
+	private HashNode<K, V> searchNode(K key, int index) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
