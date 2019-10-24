@@ -41,25 +41,42 @@ public class HashT<K, V> implements HashTable<K, V> {
 			size ++;
 			}
 		else
-			node.value = value;
+			node.setValue(value);
 	}
 
 	private HashNode<K, V> searchNode(K key, int index) {
 		HashNode<K, V> current = table[index];
-		while (current != null) && (!current.key.equals (key)))
-		4 current = current . next ();
+		while ((current != null) && (!current.getKey().equals(key))) {
+			current = current.getNext();
+			}
 		return current;
 	}
 
 	@Override
-	public V search(K k) {
-		// TODO Auto-generated method stub
-		return null;
+	public V search(K key) {
+		int index = getHash(key);
+		HashNode<K, V> node = searchNode(key, index);
+		return node == null ? null : node.getValue();
 	}
 
 	@Override
-	public void delete(K k) {
-		// TODO Auto-generated method stub
+	public void delete(K key) {
+		int index = getHash(key);
+		HashNode<K, V> prev = null ,
+		current = table[index];
+		while ((current != null) && (!current.getKey().equals(key))) {
+			prev = current;
+			current = current.getNext();
+		}
+		
+		if (current != null) { // found : delete it
+			if (prev == null) // remove first node
+				table[index] = current.getNext();
+			else
+				prev.setNext(current.getNext());
+			size--;
+		}
+
 		
 	}
 
