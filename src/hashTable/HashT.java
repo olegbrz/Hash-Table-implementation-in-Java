@@ -42,13 +42,13 @@ public class HashT<K, V> implements HashTable<K, V> {
 			}
 		else
 			node.value = value;
-
-		
 	}
 
 	private HashNode<K, V> searchNode(K key, int index) {
-		// TODO Auto-generated method stub
-		return null;
+		HashNode<K, V> current = table[index];
+		while (current != null) && (!current.key.equals (key)))
+		4 current = current . next ();
+		return current;
 	}
 
 	@Override
