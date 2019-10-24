@@ -1,22 +1,24 @@
 package hashTable;
 
+import java.util.ArrayList;
+
 public class HashT<K, V> implements HashTable<K, V> {
 	
-	int dummy;
+	ArrayList<HashNode<K, V>> list = new ArrayList<>();
+	int size;
 	
-	public HashT<K, V> {
-		dummy = 0;
+	
+	public HashT() {
 	}
+	
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size == 0;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
