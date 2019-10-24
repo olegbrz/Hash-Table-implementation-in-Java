@@ -11,6 +11,11 @@ public class HashT<K, V> implements HashTable<K, V> {
 	public HashT() {
 	}
 	
+	public 	int getHash(K key) {
+		int hash = key.hashCode();
+		return hash;
+	}
+	
 	@Override
 	public boolean isEmpty() {
 		return size == 0;
