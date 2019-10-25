@@ -4,12 +4,16 @@ public class CircularHT<K, V> implements HashTable<K, V> {
 	
 	public Node<K, V>[] table;
 	private int size;
-	private int maxLoad;
+	private double maxLoad;
 	
-	public CircularHT(int size, int maxLoad) {
+	public CircularHT(int size, double maxLoad) {
 		table = (Node<K, V>[]) new Node[size];
 		this.maxLoad = maxLoad;
 		this.size = 0;
+	}
+	
+	private double getLoad() {
+		return size / table.length;
 	}
 	
 	private int getHash(K key) {

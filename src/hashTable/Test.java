@@ -3,7 +3,7 @@ package hashTable;
 public class Test {
 
 	public static void main(String[] args) {
-		CircularHT<String, String> hash_table = new CircularHT<String, String>(1);
+		CircularHT<String, String> hash_table = new CircularHT<String, String>(0, 0.75);
 		
 		hash_table.insert("Pedro", "+34 627 46 48 62");
 		hash_table.insert("María", "+34 633 74 45 85");
