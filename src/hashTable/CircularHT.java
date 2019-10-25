@@ -26,6 +26,20 @@ public class CircularHT<K, V> implements HashTable<K, V> {
 	public int size() {
 		return size;
 	}
+	
+	private void resize() {
+		Node<K, V>[] auxTable = table; 
+		table = (Node<K, V>[]) new Node[2 * auxTable.length];
+
+		for (int i=0; i<size; i++) {
+			Node<K, V> aux = auxTable[i];
+			int index = getHash(aux.getKey());
+			
+			while (table[index] != null) {
+				index = (index + 1) % table.length;
+			}
+		}
+	}
 
 	@Override
 	public void insert(K key, V value) {
@@ -36,8 +50,13 @@ public class CircularHT<K, V> implements HashTable<K, V> {
 			index = (index + 1) % table.length;
 			node = table[index];
 		}
-		table[index] = new Node<K, V>(K key, V value);
+		table[index] = new Node<K, V>(key, value);
 		size++;
+		
+		if (size / table.length > maxLoad) {
+			resize();
+			
+		}
 	}
 
 	private Node<K, V> searchNode(K key, int index) {
