@@ -30,14 +30,14 @@ public class CircularHT<K, V> implements HashTable<K, V> {
 	@Override
 	public void insert(K key, V value) {
 		int index = getHash(key);
-		Node<K, V> node = searchNode(key, index);
+		Node<K, V> node = table[index];
 		
-		if (node == null) {
-			table[index] = new Node<K, V>(key, value, table[index]);
-			size ++;
-			}
-		else
-			node.setValue(value);
+		while (node != null) {
+			index = (index + 1) % table.length;
+			node = table[index];
+		}
+		table[index] = new Node<K, V>(K key, V value);
+		size++;
 	}
 
 	private Node<K, V> searchNode(K key, int index) {
