@@ -55,22 +55,19 @@ public class CircularHT<K, V> implements HashTable<K, V> {
 		
 		if (size / table.length > maxLoad) {
 			resize();
-			
 		}
 	}
 
-	private Node<K, V> searchNode(K key, int index) {
-		Node<K, V> current = table[index];
-		while ((current != null) && (!current.getKey().equals(key))) {
-			current = current.getNext();
-			}
-		return current;
-	}
 
 	@Override
 	public V search(K key) {
 		int index = getHash(key);
-		Node<K, V> node = searchNode(key, index);
+		Node<K, V> node = table[index];
+		while(node != null && node.getKey() != key) {
+			index = (index + 1) % table.length;
+			node= table[index];
+		}
+		
 		return node == null ? null : node.getValue();
 	}
 
