@@ -74,21 +74,26 @@ public class CircularHT<K, V> implements HashTable<K, V> {
 	@Override
 	public void delete(K key) {
 		int index = getHash(key);
-		Node<K, V> prev = null ,
-		current = table[index];
-		while ((current != null) && (!current.getKey().equals(key))) {
-			prev = current;
-			current = current.getNext();
+		Node<K, V> node = table[index];
+		
+		while (node != null && !node.getKey().equals(key)) {
+			index = (index + 1) % table.length;
+			node = table[index];
 		}
 		
-		if (current != null) { // found : delete it
-			if (prev == null) // remove first node
-				table[index] = current.getNext();
-			else
-				prev.setNext(current.getNext());
+		if (node != null) {
+			table[index] = null;
+			index = (index + 1) % table.length;
+			node = table[index];
+			
+			while (node != null) {
+				table[index] = null;
+				insert(node.getKey(), node.getValue());
+				index = (index + 1) % table.length;
+				node = table[index];
+			}
 			size--;
 		}
-
 		
 	}
 
