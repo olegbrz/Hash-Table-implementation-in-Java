@@ -1,15 +1,15 @@
 package hashTable;
 
-public class HashT<K, V> implements HashTable<K, V> {
+public class CircularHT<K, V> implements HashTable<K, V> {
 	
-	public HashNode<K, V>[] table;
+	public Node<K, V>[] table;
 	private int size;
+	private int maxLoad;
 	
-	
-	public HashT(int num) {
-		HashNode<K, V>[] hashNodes = (HashNode<K, V>[]) new HashNode[num];
-		table = hashNodes;
-		size = 0;
+	public CircularHT(int size, int maxLoad) {
+		table = (Node<K, V>[]) new Node[size];
+		this.maxLoad = maxLoad;
+		this.size = 0;
 	}
 	
 	private int getHash(K key) {
@@ -30,18 +30,18 @@ public class HashT<K, V> implements HashTable<K, V> {
 	@Override
 	public void insert(K key, V value) {
 		int index = getHash(key);
-		HashNode<K, V> node = searchNode(key, index);
+		Node<K, V> node = searchNode(key, index);
 		
 		if (node == null) {
-			table[index] = new HashNode<K, V>(key, value, table[index]);
+			table[index] = new Node<K, V>(key, value, table[index]);
 			size ++;
 			}
 		else
 			node.setValue(value);
 	}
 
-	private HashNode<K, V> searchNode(K key, int index) {
-		HashNode<K, V> current = table[index];
+	private Node<K, V> searchNode(K key, int index) {
+		Node<K, V> current = table[index];
 		while ((current != null) && (!current.getKey().equals(key))) {
 			current = current.getNext();
 			}
@@ -51,14 +51,14 @@ public class HashT<K, V> implements HashTable<K, V> {
 	@Override
 	public V search(K key) {
 		int index = getHash(key);
-		HashNode<K, V> node = searchNode(key, index);
+		Node<K, V> node = searchNode(key, index);
 		return node == null ? null : node.getValue();
 	}
 
 	@Override
 	public void delete(K key) {
 		int index = getHash(key);
-		HashNode<K, V> prev = null ,
+		Node<K, V> prev = null ,
 		current = table[index];
 		while ((current != null) && (!current.getKey().equals(key))) {
 			prev = current;

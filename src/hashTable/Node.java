@@ -2,14 +2,14 @@ package hashTable;
 
 /* Class to represent every node of the hash table */
 
-public class HashNode<K, V> {
+public class Node<K, V> {
 	
 	private K key;
 	private V value;
-	private HashNode<K, V> next;
+	private Node<K, V> next;
 	
 	/* Constructor */
-	public HashNode(K key, V value, HashNode<K, V> next) {
+	public Node(K key, V value, Node<K, V> next) {
 		this.key = key;
 		this.value = value;
 		this.next = next;
@@ -32,11 +32,11 @@ public class HashNode<K, V> {
 		this.value = value;
 	}
 
-	public HashNode<K, V> getNext() {
+	public Node<K, V> getNext() {
 		return next;
 	}
 
-	public void setNext(HashNode<K, V> next) {
+	public void setNext(Node<K, V> next) {
 		this.next = next;
 	}
 	
