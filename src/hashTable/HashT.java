@@ -2,23 +2,19 @@ package hashTable;
 
 public class HashT<K, V> implements HashTable<K, V> {
 	
-	private HashNode<K, V>[] table;
+	public HashNode<K, V>[] table;
 	private int size;
 	
 	
 	public HashT(int num) {
-		table = (HashNode<K, V>[]) new HashNode[num];
+		HashNode<K, V>[] hashNodes = (HashNode<K, V>[]) new HashNode[num];
+		table = hashNodes;
 		size = 0;
 	}
 	
 	private int getHash(K key) {
 		int hash = key.hashCode();
 		return (hash & 0x7fffffff) % table.length;
-	}
-	
-	public int getIndex(K key) {
-		int hash = key.hashCode();
-		return hash % size;
 	}
 	
 	@Override
